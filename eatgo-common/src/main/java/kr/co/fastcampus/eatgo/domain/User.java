@@ -13,21 +13,33 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Review {
+public class User {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @Setter
-    private Long restaurantId;
+    @NotEmpty
+    private String email;
 
+    @Setter
     @NotEmpty
     private String name;
 
+    @Setter
     @NotNull
-    private Integer score;
+    private Long level;
 
-    @NotEmpty
-    private String description;
+    public boolean isAdmin() {
+        return level >= 100;
+    }
+
+    public boolean isActive() {
+        return level > 0;
+    }
+
+    public void deactivate() {
+        level = 0L;
+    }
 }
